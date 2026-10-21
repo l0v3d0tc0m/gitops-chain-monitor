@@ -45,6 +45,12 @@ const samples = [
   ["Will a spot SOL ETF be approved this quarter?", 0.22],
   ["Will average Ethereum gas stay under 5 gwei this week?", 0.83],
   ["Will Base process more transactions than Arbitrum this month?", 0.46],
+  ["Will Bitcoin dominance stay above 55% until the end of the month?", 0.64],
+  ["Will total stablecoin supply hit a new record this quarter?", 0.52],
+  ["Will Solana have a network outage this month?", 0.09],
+  ["Will an Ethereum L2 surpass $20B in total value locked this year?", 0.27],
+  ["Will US inflation come in below 3% in the next CPI report?", 0.61],
+  ["Will a top-10 crypto exchange halt withdrawals this year?", 0.14],
 ];
 const markets = {};
 const tracked = [];
@@ -72,7 +78,7 @@ samples.forEach(([question, start], i) => {
 const movers = tracked
   .map((id) => ({ ...markets[id], price: markets[id].points.at(-1)[1] }))
   .sort((a, b) => Math.abs(b.change24h) - Math.abs(a.change24h))
-  .slice(0, 4)
+  .slice(0, config.markets.movers)
   .map(({ question, event, price, change24h }) => ({ question, event, price, change24h }));
 
 await writeJson(dataPath("demo-markets.json"), { updatedAt: new Date(now * 1000).toISOString(), tracked, movers, markets });
