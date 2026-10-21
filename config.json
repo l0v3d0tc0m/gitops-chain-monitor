@@ -1,0 +1,76 @@
+{
+  "infra": [
+    {
+      "name": "Ethereum",
+      "type": "evm",
+      "symbol": "ETH",
+      "gas": true,
+      "maxBlockAge": 60,
+      "maxLag": 3,
+      "targets": [
+        { "name": "PublicNode", "url": "https://ethereum-rpc.publicnode.com" },
+        { "name": "dRPC", "url": "https://eth.drpc.org" }
+      ]
+    },
+    {
+      "name": "Polygon",
+      "type": "evm",
+      "symbol": "POL",
+      "maxBlockAge": 30,
+      "maxLag": 15,
+      "targets": [
+        { "name": "PublicNode", "url": "https://polygon-bor-rpc.publicnode.com" },
+        { "name": "dRPC", "url": "https://polygon.drpc.org" }
+      ]
+    },
+    {
+      "name": "Arbitrum",
+      "type": "evm",
+      "symbol": "ARB",
+      "maxBlockAge": 30,
+      "maxLag": 120,
+      "targets": [
+        { "name": "Offchain Labs", "url": "https://arb1.arbitrum.io/rpc" },
+        { "name": "PublicNode", "url": "https://arbitrum-one-rpc.publicnode.com" }
+      ]
+    },
+    {
+      "name": "Base",
+      "type": "evm",
+      "symbol": "BASE",
+      "maxBlockAge": 30,
+      "maxLag": 15,
+      "targets": [
+        { "name": "Coinbase", "url": "https://mainnet.base.org" },
+        { "name": "PublicNode", "url": "https://base-rpc.publicnode.com" }
+      ]
+    },
+    {
+      "name": "Solana",
+      "type": "solana",
+      "symbol": "SOL",
+      "maxLag": 150,
+      "targets": [
+        { "name": "Solana Labs", "url": "https://api.mainnet-beta.solana.com" },
+        { "name": "PublicNode", "url": "https://solana-rpc.publicnode.com" }
+      ]
+    },
+    {
+      "name": "Exchanges & APIs",
+      "type": "http",
+      "targets": [
+        { "name": "Polymarket Gamma", "url": "https://gamma-api.polymarket.com/markets?limit=1" },
+        { "name": "Polymarket CLOB", "url": "https://clob.polymarket.com/time" },
+        { "name": "Coinbase", "url": "https://api.coinbase.com/v2/time" },
+        { "name": "Kraken", "url": "https://api.kraken.com/0/public/SystemStatus" },
+        { "name": "CoinGecko", "url": "https://api.coingecko.com/api/v3/ping" }
+      ]
+    }
+  ],
+  "markets": {
+    "track": 8,
+    "minDaysToEnd": 2,
+    "movers": 5,
+    "moversMinVolume": 50000
+  }
+}

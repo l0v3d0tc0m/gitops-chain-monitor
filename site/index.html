@@ -3,29 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Status Page</title>
-  <meta name="description" content="Uptime monitoring powered by GitHub Actions">
+  <title>chainpulse</title>
+  <meta name="description" content="Crypto infrastructure uptime and Polymarket odds, collected by GitHub Actions">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%2322c55e'/></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
-      <h1 class="logo"><span class="pulse"></span>status</h1>
+      <h1 class="logo"><span class="pulse"></span>chainpulse<span class="demo-chip" id="demo-chip" hidden>demo data</span></h1>
       <span class="updated" id="updated">loading…</span>
     </header>
 
-    <section class="banner" id="banner" data-state="loading">
-      <span class="banner-dot"></span>
-      <span id="banner-text">Checking systems…</span>
-    </section>
+    <nav class="tabs" role="tablist">
+      <a href="#infra" class="tab" data-tab="infra" role="tab">Infrastructure</a>
+      <a href="#markets" class="tab" data-tab="markets" role="tab">Markets</a>
+    </nav>
 
-    <section class="summary" id="summary"></section>
+    <div id="view-infra" class="view">
+      <section class="banner" id="banner" data-state="loading">
+        <span class="banner-dot"></span>
+        <span id="banner-text">Checking networks…</span>
+      </section>
+      <section class="summary" id="summary"></section>
+      <section id="groups"></section>
+    </div>
 
-    <section class="services" id="services"></section>
+    <div id="view-markets" class="view" hidden>
+      <section class="card movers">
+        <h2 class="card-title">Biggest moves · 24h</h2>
+        <div id="movers"></div>
+      </section>
+      <h2 class="section-title">Most traded markets</h2>
+      <section class="markets" id="markets"></section>
+    </div>
 
     <footer class="foot">
-      Checks run every 15 minutes via GitHub Actions · history is stored in git
+      Collected every 15 minutes by GitHub Actions · history is stored in git ·
+      market data from the public Polymarket API, not financial advice
     </footer>
   </main>
 

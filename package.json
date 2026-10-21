@@ -1,11 +1,13 @@
 {
-  "name": "status-page",
+  "name": "chainpulse",
   "version": "1.0.0",
   "private": true,
-  "description": "Uptime monitoring status page powered by GitHub Actions and GitHub Pages",
+  "description": "Crypto infrastructure uptime and Polymarket odds, collected by GitHub Actions and served from GitHub Pages",
   "type": "module",
   "scripts": {
-    "check": "node scripts/check.mjs",
+    "infra": "node scripts/infra.mjs",
+    "markets": "node scripts/markets.mjs",
+    "collect": "node scripts/infra.mjs && node scripts/markets.mjs",
     "demo": "node scripts/demo.mjs",
     "start": "node scripts/serve.mjs 8080"
   },
