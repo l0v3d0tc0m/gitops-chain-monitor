@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Status Page</title>
+  <meta name="description" content="Uptime monitoring powered by GitHub Actions">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%2322c55e'/></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1 class="logo"><span class="pulse"></span>status</h1>
+      <span class="updated" id="updated">loading…</span>
+    </header>
+
+    <section class="banner" id="banner" data-state="loading">
+      <span class="banner-dot"></span>
+      <span id="banner-text">Checking systems…</span>
+    </section>
+
+    <section class="summary" id="summary"></section>
+
+    <section class="services" id="services"></section>
+
+    <footer class="foot">
+      Checks run every 15 minutes via GitHub Actions · history is stored in git
+    </footer>
+  </main>
+
+  <div class="tip" id="tip" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
