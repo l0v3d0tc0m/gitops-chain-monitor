@@ -34,11 +34,17 @@ jobs:
         run: node scripts/markets.mjs
         continue-on-error: true   # a Polymarket hiccup must not block the uptime data
 
+      - name: Translate new market questions
+        run: node scripts/translate.mjs
+        continue-on-error: true   # untranslated questions just show in English
+        env:
+          MYMEMORY_EMAIL: ${{ secrets.MYMEMORY_EMAIL }}   # optional, raises the free quota
+
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/data/infra.json site/data/markets.json
+          git add site/data/infra.json site/data/markets.json site/data/translations.json
           git diff --cached --quiet && exit 0
           git commit -m "chore: collect data $(date -u +'%Y-%m-%d %H:%M')"
           git pull --rebase

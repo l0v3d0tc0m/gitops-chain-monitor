@@ -240,6 +240,14 @@ function chart(points, change) {
     <path class="line" d="${line}" vector-effect="non-scaling-stroke"/></svg>`;
 }
 
+// Questions are translated by the collector (scripts/translate.mjs); fall back to English.
+function questionHtml(q, cls) {
+  const tr = lang !== "en" ? state.tr?.items?.[q]?.[lang] : null;
+  return tr
+    ? `<span class="${cls}" lang="${lang}" title="${esc(q)}">${esc(tr)}</span>`
+    : `<span class="${cls}" lang="en">${esc(q)}</span>`;
+}
+
 const marketUrl = (event) => (event ? `https://polymarket.com/event/${encodeURIComponent(event)}` : "https://polymarket.com");
 
 function daysLeft(iso) {
@@ -256,7 +264,7 @@ function marketHtml(m) {
   const img = m.image ? `<img src="${esc(m.image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : "";
 
   return `<a class="card market" href="${marketUrl(m.event)}" target="_blank" rel="noopener">
-    <div class="market-head">${img}<div class="market-q" lang="en">${esc(m.question)}</div></div>
+    <div class="market-head">${img}${questionHtml(m.question, "market-q")}</div>
     <div class="market-row"><span class="market-price">${odds(price)}</span><span class="market-outcome">${label}</span>${deltaChip(m.change24h)}</div>
     ${history}
     <div class="market-foot"><span>${t("vol24h")} ${usd(m.volume24h)}</span><span>${m.endDate ? daysLeft(m.endDate) : ""}</span></div>
@@ -271,13 +279,13 @@ function renderMarkets(data) {
 
   $("movers").innerHTML = (data.movers ?? [])
     .map((m) => `<a class="mover" href="${marketUrl(m.event)}" target="_blank" rel="noopener">
-      <span class="q" lang="en">${esc(m.question)}</span><span class="price">${odds(m.price)}</span>${deltaChip(m.change24h)}</a>`)
+      ${questionHtml(m.question, "q")}<span class="price">${odds(m.price)}</span>${deltaChip(m.change24h)}</a>`)
     .join("") || `<div class="empty-state">${t("noMovers")}</div>`;
 }
 
 /* ---------------- app ---------------- */
 
-const state = { infra: null, markets: null, failed: false };
+const state = { infra: null, markets: null, tr: null, failed: false };
 
 function render() {
   if (state.infra) renderInfra(state.infra);
@@ -299,9 +307,10 @@ async function getJson(name) {
 }
 
 async function load() {
-  const [infra, markets] = await Promise.allSettled([getJson("infra"), getJson("markets")]);
+  const [infra, markets, tr] = await Promise.allSettled([getJson("infra"), getJson("markets"), getJson("translations")]);
   if (infra.status === "fulfilled") state.infra = infra.value;
   if (markets.status === "fulfilled") state.markets = markets.value;
+  if (tr.status === "fulfilled") state.tr = tr.value;
   state.failed = infra.status === "rejected" && !state.infra;
   render();
 }

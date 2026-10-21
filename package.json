@@ -7,8 +7,9 @@
   "scripts": {
     "infra": "node scripts/infra.mjs",
     "markets": "node scripts/markets.mjs",
-    "collect": "node scripts/infra.mjs && node scripts/markets.mjs",
-    "demo": "node scripts/demo.mjs",
+    "translate": "node scripts/translate.mjs",
+    "collect": "node scripts/infra.mjs && node scripts/markets.mjs && node scripts/translate.mjs",
+    "demo": "node scripts/demo.mjs && node scripts/translate.mjs demo",
     "start": "node scripts/serve.mjs 8080"
   },
   "engines": {

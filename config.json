@@ -68,9 +68,14 @@
     }
   ],
   "markets": {
-    "track": 8,
+    "track": 12,
     "minDaysToEnd": 2,
     "movers": 5,
     "moversMinVolume": 50000
+  },
+  "translate": {
+    "langs": { "ru": "ru", "es": "es", "zh": "zh-CN", "de": "de" },
+    "maxCharsPerRun": 4000,
+    "forgetAfterDays": 14
   }
 }
