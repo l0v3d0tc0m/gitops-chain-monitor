@@ -6,24 +6,57 @@
   <title>chainpulse</title>
   <meta name="description" content="Crypto infrastructure uptime and Polymarket odds, collected by GitHub Actions">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%2322c55e'/></svg>">
+  <script>
+    // apply the saved theme before first paint, so the page never flashes the wrong colors
+    try {
+      var saved = localStorage.getItem("cp-theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
-      <h1 class="logo"><span class="pulse"></span>chainpulse<span class="demo-chip" id="demo-chip" hidden>demo data</span></h1>
-      <span class="updated" id="updated">loading…</span>
+      <h1 class="logo"><span class="pulse"></span>chainpulse<span class="demo-chip" id="demo-chip" data-i18n="demo" hidden>demo data</span></h1>
+
+      <div class="controls">
+        <label class="lang">
+          <select id="lang" data-i18n-aria="language" aria-label="Language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="es">Español</option>
+            <option value="zh">中文</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </label>
+
+        <div class="seg" id="theme" role="group" data-i18n-aria="theme" aria-label="Theme">
+          <button type="button" data-theme="light" data-i18n-title="themeLight" title="Light">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button type="button" data-theme="dark" data-i18n-title="themeDark" title="Dark">
+            <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </button>
+          <button type="button" data-theme="system" data-i18n-title="themeSystem" title="System">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </button>
+        </div>
+      </div>
     </header>
 
-    <nav class="tabs" role="tablist">
-      <a href="#infra" class="tab" data-tab="infra" role="tab">Infrastructure</a>
-      <a href="#markets" class="tab" data-tab="markets" role="tab">Markets</a>
-    </nav>
+    <div class="nav">
+      <nav class="tabs" role="tablist">
+        <a href="#infra" class="tab" data-tab="infra" role="tab" data-i18n="tabInfra">Infrastructure</a>
+        <a href="#markets" class="tab" data-tab="markets" role="tab" data-i18n="tabMarkets">Markets</a>
+      </nav>
+      <span class="updated" id="updated"></span>
+    </div>
 
     <div id="view-infra" class="view">
       <section class="banner" id="banner" data-state="loading">
         <span class="banner-dot"></span>
-        <span id="banner-text">Checking networks…</span>
+        <span id="banner-text" data-i18n="checking">Checking networks…</span>
       </section>
       <section class="summary" id="summary"></section>
       <section id="groups"></section>
@@ -31,14 +64,14 @@
 
     <div id="view-markets" class="view" hidden>
       <section class="card movers">
-        <h2 class="card-title">Biggest moves · 24h</h2>
+        <h2 class="card-title" data-i18n="moversTitle">Biggest moves · 24h</h2>
         <div id="movers"></div>
       </section>
-      <h2 class="section-title">Most traded markets</h2>
+      <h2 class="section-title" data-i18n="marketsTitle">Most traded markets</h2>
       <section class="markets" id="markets"></section>
     </div>
 
-    <footer class="foot">
+    <footer class="foot" data-i18n="footer">
       Collected every 15 minutes by GitHub Actions · history is stored in git ·
       market data from the public Polymarket API, not financial advice
     </footer>
@@ -46,6 +79,7 @@
 
   <div class="tip" id="tip" hidden></div>
 
+  <script src="i18n.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

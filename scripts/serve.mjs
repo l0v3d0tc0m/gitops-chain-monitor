@@ -15,7 +15,10 @@ createServer(async (req, res) => {
   if (!file.startsWith(dir)) return res.writeHead(403).end();
   try {
     const body = await readFile(file);
-    res.writeHead(200, { "content-type": (types[extname(file)] || "application/octet-stream") + "; charset=utf-8" });
+    res.writeHead(200, {
+      "content-type": (types[extname(file)] || "application/octet-stream") + "; charset=utf-8",
+      "cache-control": "no-cache", // always revalidate, so edits show up on reload
+    });
     res.end(body);
   } catch {
     res.writeHead(404).end("not found");
